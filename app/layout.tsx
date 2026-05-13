@@ -1,10 +1,16 @@
 import type { Metadata } from "next"
-import { Space_Mono } from "next/font/google"
+import { VT323, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 
-const spaceMono = Space_Mono({
-  weight: ["400", "700"],
-  variable: "--font-space-mono",
+const vt323 = VT323({
+  weight: "400",
+  variable: "--font-vt323",
+  subsets: ["latin"],
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  weight: ["400", "500", "700"],
+  variable: "--font-jetbrains",
   subsets: ["latin"],
 })
 
@@ -19,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={spaceMono.variable}>
+    <html lang="en" className={`${vt323.variable} ${jetbrainsMono.variable}`}>
       <body>{children}</body>
     </html>
   )

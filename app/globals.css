@@ -9,8 +9,12 @@
 body {
   background: #050505;
   color: #e8e8e8;
-  font-family: var(--font-space-mono), "Courier New", monospace;
+  font-family: var(--font-jetbrains), "Courier New", monospace;
   overflow-x: hidden;
+}
+
+@utility font-terminal {
+  font-family: var(--font-vt323), monospace;
 }
 
 /* Animated glitch slice overlays — opacity driven by GSAP */
@@ -75,6 +79,44 @@ body {
 
 .tag-loop {
   animation: tag-flicker 6s infinite;
+}
+
+/* "weird" word — shimmering golden rainbow with aura */
+@keyframes shimmer-rainbow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes aura-pulse {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 6px rgba(255,215,0,0.95))
+      drop-shadow(0 0 18px rgba(255,165,0,0.65))
+      drop-shadow(0 0 40px rgba(255,200,0,0.30));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 10px rgba(255,215,0,1))
+      drop-shadow(0 0 28px rgba(255,100,0,0.80))
+      drop-shadow(0 0 60px rgba(255,220,0,0.45));
+  }
+}
+
+.weird-word {
+  background: linear-gradient(
+    90deg,
+    #ffd700, #ffb700, #ff8c00,
+    #ff6bcb, #a78bfa, #67e8f9,
+    #a3e635, #ffd700, #ffb700,
+    #ff8c00, #ffd700
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation:
+    shimmer-rainbow 2.4s linear infinite,
+    aura-pulse 2s ease-in-out infinite;
 }
 
 /* Cursor blink for terminal text */
