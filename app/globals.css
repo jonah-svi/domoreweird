@@ -81,6 +81,43 @@ body {
   animation: tag-flicker 6s infinite;
 }
 
+/* Bouncing period physics — falls, squishes on impact, damps to rest */
+@keyframes bounce-period {
+  /* Drop */
+  0%    { transform: translateY(-160px) scaleX(1)    scaleY(1);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  /* Impact 1 — biggest squish */
+  10%   { transform: translateY(0)      scaleX(1.75) scaleY(0.38); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  /* Rise 1 */
+  17%   { transform: translateY(-80px)  scaleX(1)    scaleY(1);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  /* Impact 2 */
+  24%   { transform: translateY(0)      scaleX(1.5)  scaleY(0.55); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  /* Rise 2 */
+  29%   { transform: translateY(-40px)  scaleX(1)    scaleY(1);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  /* Impact 3 */
+  34%   { transform: translateY(0)      scaleX(1.3)  scaleY(0.68); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  /* Rise 3 */
+  37.5% { transform: translateY(-20px)  scaleX(1)    scaleY(1);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  /* Impact 4 */
+  41%   { transform: translateY(0)      scaleX(1.18) scaleY(0.82); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  /* Rise 4 */
+  43.5% { transform: translateY(-9px)   scaleX(1)    scaleY(1);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  /* Impact 5 */
+  46%   { transform: translateY(0)      scaleX(1.08) scaleY(0.92); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  /* Rise 5 */
+  47.5% { transform: translateY(-4px)   scaleX(1)    scaleY(1);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  /* Settle */
+  49%   { transform: translateY(0)      scaleX(1.02) scaleY(0.98); }
+  51%, 100% { transform: translateY(0)  scaleX(1)    scaleY(1); }
+}
+
+.bounce-period {
+  display: inline-block;
+  transform-origin: bottom center;
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255,215,0,0.9), 0 0 22px rgba(255,165,0,0.5);
+  animation: bounce-period 5s infinite;
+}
+
 /* "weird" word — shimmering golden rainbow with aura */
 @keyframes shimmer-rainbow {
   0%   { background-position: 0% 50%; }
