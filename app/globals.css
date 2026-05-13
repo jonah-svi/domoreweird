@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #050505;
+  color: #e8e8e8;
+  font-family: var(--font-space-mono), "Courier New", monospace;
+  overflow-x: hidden;
+}
+
+/* Animated glitch slice overlays — opacity driven by GSAP */
+@keyframes slice-drift-a {
+  0%   { clip-path: inset(15% 0 55% 0); transform: translateX(-8px); }
+  25%  { clip-path: inset(40% 0 20% 0); transform: translateX(12px); }
+  50%  { clip-path: inset(5%  0 70% 0); transform: translateX(-6px); }
+  75%  { clip-path: inset(65% 0 8%  0); transform: translateX(16px); }
+  100% { clip-path: inset(15% 0 55% 0); transform: translateX(-8px); }
+}
+
+@keyframes slice-drift-b {
+  0%   { clip-path: inset(70% 0 5%  0); transform: translateX(10px); }
+  30%  { clip-path: inset(25% 0 45% 0); transform: translateX(-14px); }
+  60%  { clip-path: inset(50% 0 20% 0); transform: translateX(18px); }
+  90%  { clip-path: inset(10% 0 60% 0); transform: translateX(-10px); }
+  100% { clip-path: inset(70% 0 5%  0); transform: translateX(10px); }
+}
+
+.glitch-slice-a {
+  animation: slice-drift-a 0.4s steps(1) infinite;
+}
+
+.glitch-slice-b {
+  animation: slice-drift-b 0.28s steps(1) infinite;
+}
+
+/* Scanline rolling effect */
+@keyframes scanline-roll {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scanline-beam {
+  animation: scanline-roll 2s linear infinite;
+}
+
+/* Cursor blink for terminal text */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: "█";
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+
+/* Noise grain overlay */
+.noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+}
