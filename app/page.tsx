@@ -166,7 +166,7 @@ export default function Page() {
         </div>
 
         <div ref={s3Ref} className="absolute inset-0 z-10 flex items-center justify-center" style={{ opacity: 0 }}>
-          <p className="font-terminal text-7xl md:text-9xl tracking-[0.25em] text-white text-center px-8">EXPECT US.</p>
+          <p className="font-terminal text-6xl md:text-8xl tracking-wide text-white text-center px-8">And yet we&apos;re dropping the ball.</p>
         </div>
 
         <div ref={s4Ref} className="absolute inset-0 z-10 flex items-center justify-center" style={{ opacity: 0 }}>
