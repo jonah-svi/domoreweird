@@ -48,6 +48,35 @@ body {
   animation: scanline-roll 2s linear infinite;
 }
 
+/* Final scene — looping glitch on DO MORE WEIRD */
+@keyframes terminal-glitch {
+  0%, 75%, 100% {
+    transform: translateX(0) skewX(0deg);
+    filter: none;
+  }
+  76% { transform: translateX(-14px) skewX(-1.5deg); filter: hue-rotate(90deg) saturate(8) brightness(1.6); }
+  77% { transform: translateX(18px)  skewX(2deg);    filter: invert(1); }
+  78% { transform: translateX(-9px)  skewX(-2deg);   filter: hue-rotate(200deg) saturate(5); }
+  79% { transform: translateX(0)     skewX(0deg);    filter: none; }
+  88% { transform: translateX(11px)  skewX(1deg);    filter: hue-rotate(270deg) brightness(2); }
+  89% { transform: translateX(-7px)  skewX(-1deg);   filter: invert(0.8); }
+  90% { transform: translateX(0)     skewX(0deg);    filter: none; }
+}
+
+@keyframes tag-flicker {
+  0%, 74%, 82%, 87%, 91%, 100% { opacity: 1; }
+  75%, 80%, 83%, 88%, 90%      { opacity: 0; }
+  76%, 81%, 84%, 89%           { opacity: 0.3; }
+}
+
+.glitch-loop {
+  animation: terminal-glitch 6s infinite;
+}
+
+.tag-loop {
+  animation: tag-flicker 6s infinite;
+}
+
 /* Cursor blink for terminal text */
 @keyframes blink {
   0%, 100% { opacity: 1; }
