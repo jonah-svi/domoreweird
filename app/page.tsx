@@ -176,8 +176,8 @@ export default function Page() {
 
       sceneTyping(s4Ref,
         () => {
-          if (weirdRef.current) gsap.to(weirdRef.current, { opacity: 1, duration: 0.15 })
-          setTimeout(() => t4Ref.current?.play(() => t4bRef.current?.play()), 250)
+          if (weirdRef.current) gsap.to(weirdRef.current, { opacity: 1, duration: 0.3 })
+          setTimeout(() => t4Ref.current?.play(() => t4bRef.current?.play()), 450)
         },
         () => {
           t4Ref.current?.reset()
@@ -196,9 +196,6 @@ export default function Page() {
       )
 
       // ── WHY SCENE: bouncing physics ───────────────────────────────
-      const WHY_COUNT = 28
-      const WHY_COLORS = ["#ffffff", "#ffffff", "#00ff41", "#ffffff", "#ffffff", "#00ff41", "#ffffff", "#ffffff"]
-      const WHY_SIZES  = ["text-4xl", "text-5xl", "text-6xl", "text-7xl", "text-5xl", "text-6xl", "text-4xl"]
       type Particle = { x: number; y: number; vx: number; vy: number }
       let whyParticles: Particle[] = []
 
@@ -444,7 +441,7 @@ export default function Page() {
 
       <div ref={s3Ref} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
-        <div className="relative z-10 flex flex-col items-center gap-4 px-8 pt-32">
+        <div className="relative z-10 flex flex-col items-center gap-4 px-8">
           <p className="font-terminal text-6xl md:text-8xl tracking-wide text-white text-center">
             <TypingText ref={t3aRef} text="And yet..." showCursor={false} />
           </p>
@@ -556,7 +553,7 @@ export default function Page() {
       <div ref={s7bRef} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
         <div className="relative z-10 flex flex-col gap-8 px-12 max-w-4xl w-full">
-          <p className="font-terminal text-5xl md:text-6xl text-[#ff2222] tracking-wide">
+          <p className="font-terminal text-5xl md:text-6xl text-[#ff2222] tracking-wide text-center">
             <TypingText ref={t7bRef} text="Here are our demands:" showCursor={false} charDelay={0.06} />
           </p>
           <div className="flex flex-col gap-5 text-lg md:text-xl text-white leading-relaxed">
