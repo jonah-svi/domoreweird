@@ -581,7 +581,7 @@ export default function Page() {
         </p>
       </div>
 
-      <div ref={s7bRef} className="relative min-h-screen md:h-screen bg-[#050505] flex items-center justify-center md:overflow-hidden py-16 md:py-0">
+      <div ref={s7bRef} className="relative min-h-screen md:h-screen bg-[#050505] flex items-center justify-center overflow-hidden py-16 md:py-0">
         <Scanlines />
         <div className="relative z-10 flex flex-col gap-3 sm:gap-6 px-4 sm:px-8 md:px-12 max-w-4xl w-full">
           <p className="font-terminal text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-[#ff2222] tracking-wide text-center">
