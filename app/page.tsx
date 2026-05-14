@@ -67,6 +67,7 @@ export default function Page() {
   const t7cRef = useRef<TypingHandle>(null)
   const t7dRef = useRef<TypingHandle>(null)
   const t7eRef = useRef<TypingHandle>(null)
+  const t7fRef = useRef<TypingHandle>(null)
   const t8Ref  = useRef<TypingHandle>(null)
 
   // Scene 1 glitch elements
@@ -294,7 +295,9 @@ export default function Page() {
         () => t7bRef.current?.play(() =>
           t7cRef.current?.play(() =>
             t7dRef.current?.play(() =>
-              t7eRef.current?.play()
+              t7eRef.current?.play(() =>
+                t7fRef.current?.play()
+              )
             )
           )
         ),
@@ -303,6 +306,7 @@ export default function Page() {
           t7cRef.current?.reset()
           t7dRef.current?.reset()
           t7eRef.current?.reset()
+          t7fRef.current?.reset()
         },
       )
 
@@ -558,7 +562,8 @@ export default function Page() {
           <div className="flex flex-col gap-5 text-lg md:text-xl text-white leading-relaxed">
             <p><TypingText ref={t7cRef} text="1) Change #do-more-weird to #demo-more-weird." showCursor={false} charDelay={0.03} /></p>
             <p><TypingText ref={t7dRef} text="2) Redirect ideas that need conspirators/money to RFCs for better visibility and documentation." showCursor={false} charDelay={0.02} /></p>
-            <p><TypingText ref={t7eRef} text="3) If given a choice, go live. If you can't go live, reduce the task size so you can." charDelay={0.025} /></p>
+            <p><TypingText ref={t7eRef} text="3) If given a choice, go live. If you can't go live, reduce the task size so you can." showCursor={false} charDelay={0.025} /></p>
+            <p><TypingText ref={t7fRef} text="4) If you want to shitpost or joke, do it elsewhere. This is a place for action." charDelay={0.025} /></p>
           </div>
         </div>
       </div>
