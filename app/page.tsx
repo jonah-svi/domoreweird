@@ -553,7 +553,7 @@ export default function Page() {
 
       <div ref={sToRef} className="relative h-screen bg-[#050505] overflow-hidden">
         <Scanlines />
-        <div className="absolute inset-0 flex flex-wrap content-start gap-x-3 sm:gap-x-5 md:gap-x-6 gap-y-3 sm:gap-y-4 md:gap-y-5 p-4 sm:p-6 md:p-8">
+        <div className="absolute inset-0 flex flex-wrap content-start gap-x-2 sm:gap-x-5 md:gap-x-6 gap-y-2 sm:gap-y-4 md:gap-y-5 p-0 md:p-8">
           {Array.from({ length: 200 }).map((_, i) => {
             const phrases = [
               { text: "To validation.", color: "#e8e8e8" },
@@ -583,11 +583,11 @@ export default function Page() {
 
       <div ref={s7bRef} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
-        <div className="relative z-10 flex flex-col gap-6 px-4 sm:px-8 md:px-12 max-w-4xl w-full">
-          <p className="font-terminal text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#ff2222] tracking-wide text-center">
+        <div className="relative z-10 flex flex-col gap-3 sm:gap-6 px-4 sm:px-8 md:px-12 max-w-4xl w-full">
+          <p className="font-terminal text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-[#ff2222] tracking-wide text-center">
             <TypingText ref={t7bRef} text="Here are our demands:" showCursor={false} charDelay={0.06} />
           </p>
-          <div className="flex flex-col gap-4 text-base sm:text-lg md:text-xl text-white leading-relaxed">
+          <div className="flex flex-col gap-2 sm:gap-4 text-sm sm:text-lg md:text-xl text-white leading-snug sm:leading-relaxed">
             <p><TypingText ref={t7cRef} text="1) Change #do-more-weird to #demo-more-weird." showCursor={false} charDelay={0.03} /></p>
             <p><TypingText ref={t7dRef} text="2) Redirect ideas that need conspirators/money to RFCs for better visibility and documentation." showCursor={false} charDelay={0.02} /></p>
             <p><TypingText ref={t7eRef} text="3) If given a choice, go live. If you can't go live, reduce the task size so you can." showCursor={false} charDelay={0.025} /></p>
