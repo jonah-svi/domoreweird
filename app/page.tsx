@@ -45,9 +45,6 @@ export default function Page() {
   const whyRefs        = useRef<(HTMLSpanElement | null)[]>([])
   const whyTickerFnRef = useRef<(() => void) | null>(null)
 
-  // To scene: figure-8 ticker
-  const toWordRefs         = useRef<(HTMLSpanElement | null)[]>([])
-  const toFigure8TickerRef = useRef<(() => void) | null>(null)
 
   // Typing handles
   const t1Ref  = useRef<TypingHandle>(null)
@@ -63,9 +60,7 @@ export default function Page() {
   const t5cRef = useRef<TypingHandle>(null)
   const t6aRef = useRef<TypingHandle>(null)
   const t6bRef = useRef<TypingHandle>(null)
-  const t6cRef = useRef<TypingHandle>(null)
   const t6dRef = useRef<TypingHandle>(null)
-  const t6eRef = useRef<TypingHandle>(null)
   const t6fRef = useRef<TypingHandle>(null)
   const t7Ref  = useRef<TypingHandle>(null)
   const t7bRef = useRef<TypingHandle>(null)
@@ -277,68 +272,15 @@ export default function Page() {
       )
 
       sceneTyping(s6bRef,
-        () => { t6cRef.current?.play(() => setTimeout(() => t6dRef.current?.play(), 200)) },
-        () => { t6cRef.current?.reset(); t6dRef.current?.reset() },
+        () => t6dRef.current?.play(),
+        () => t6dRef.current?.reset(),
       )
 
       sceneTyping(s6cRef,
-        () => { t6eRef.current?.play(() => setTimeout(() => t6fRef.current?.play(), 200)) },
-        () => { t6eRef.current?.reset(); t6fRef.current?.reset() },
+        () => t6fRef.current?.play(),
+        () => t6fRef.current?.reset(),
       )
 
-      // ── TO SCENE: figure-8 (lemniscate) ticker ───────────────────
-      // Lemniscate of Bernoulli: x = rx*cos(t)/(1+sin²t), y = ry*sin(t)*cos(t)/(1+sin²t)
-      const lemni = (t: number, rx: number, ry: number) => {
-        const s = Math.sin(t)
-        const d = 1 + s * s
-        return { x: rx * Math.cos(t) / d, y: ry * Math.sin(t) * Math.cos(t) / d }
-      }
-      const TO_ITEMS_N = 6
-      const TO_RX = 300   // horizontal half-span
-      const TO_RY = 150   // vertical half-span
-      const TO_SPEED = (Math.PI * 2) / (60 * 14)  // one full loop per 14s @ 60fps
-      let figAngle = 0
-
-      const startFigure8 = () => {
-        const els = toWordRefs.current.filter((el): el is HTMLSpanElement => !!el)
-        if (els.length === 0) return
-        if (toFigure8TickerRef.current) gsap.ticker.remove(toFigure8TickerRef.current)
-        const fn = () => {
-          figAngle += TO_SPEED
-          els.forEach((el, i) => {
-            const t = figAngle + (i / TO_ITEMS_N) * Math.PI * 2
-            const { x, y } = lemni(t, TO_RX, TO_RY)
-            const normX = Math.abs(x) / TO_RX   // 0 at center crossing, 1 at lobe tips
-            const scale = 0.6 + 0.4 * normX
-            const opacity = 0.3 + 0.7 * normX
-            gsap.set(el, { x, y, scale, opacity, xPercent: -50, yPercent: -50, zIndex: Math.round(normX * 10) })
-          })
-        }
-        toFigure8TickerRef.current = fn
-        gsap.ticker.add(fn)
-      }
-
-      const stopFigure8 = () => {
-        if (toFigure8TickerRef.current) {
-          gsap.ticker.remove(toFigure8TickerRef.current)
-          toFigure8TickerRef.current = null
-        }
-        toWordRefs.current.forEach(el => { if (el) gsap.set(el, { opacity: 0 }) })
-      }
-
-      ScrollTrigger.create({
-        trigger: sToRef.current,
-        start: "top 65%",
-        onEnter:     startFigure8,
-        onLeaveBack: stopFigure8,
-        onLeave:     () => {
-          if (toFigure8TickerRef.current) {
-            gsap.ticker.remove(toFigure8TickerRef.current)
-            toFigure8TickerRef.current = null
-          }
-        },
-        onEnterBack: startFigure8,
-      })
 
       sceneTyping(s7Ref,
         () => t7Ref.current?.play(),
@@ -407,7 +349,6 @@ export default function Page() {
 
     return () => {
       if (whyTickerFnRef.current) gsap.ticker.remove(whyTickerFnRef.current)
-      if (toFigure8TickerRef.current) gsap.ticker.remove(toFigure8TickerRef.current)
       ctx.revert()
     }
   }, [])
@@ -550,54 +491,40 @@ export default function Page() {
         </p>
       </div>
 
-      <div ref={s6bRef} className="relative h-screen bg-[#050505] flex flex-col items-center justify-center gap-5 overflow-hidden">
+      <div ref={s6bRef} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
-        <p className="relative z-10 text-sm tracking-[0.4em] text-gray-500 uppercase text-center">
-          <TypingText ref={t6cRef} text="We have become..." showCursor={false} charDelay={0.07} />
-        </p>
         <p className="relative z-10 font-terminal text-8xl md:text-[12rem] text-white italic leading-none text-center">
           <TypingText ref={t6dRef} text="complacent." charDelay={0.09} />
         </p>
       </div>
 
-      <div ref={s6cRef} className="relative h-screen bg-[#050505] flex flex-col items-center justify-center gap-5 overflow-hidden">
+      <div ref={s6cRef} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
-        <p className="relative z-10 text-sm tracking-[0.4em] text-gray-500 uppercase text-center">
-          <TypingText ref={t6eRef} text="We have become..." showCursor={false} charDelay={0.07} />
-        </p>
         <p className="relative z-10 font-terminal text-8xl md:text-[12rem] text-white italic leading-none text-center">
           <TypingText ref={t6fRef} text="conditioned." charDelay={0.09} />
         </p>
       </div>
 
-      <div ref={sToRef} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
+      <div ref={sToRef} className="relative h-screen bg-[#050505] overflow-hidden">
         <Scanlines />
-        {/* Origin point — words orbit around this via GSAP x/y */}
-        <div style={{ position: "relative", width: 0, height: 0 }}>
-          {([
-            { text: "To validation.", color: "#ffffff" },
-            { text: "To dopamine.",   color: "#00ff41" },
-            { text: "To inaction.",   color: "#ff2222" },
-            { text: "To validation.", color: "#ffffff" },
-            { text: "To dopamine.",   color: "#00ff41" },
-            { text: "To inaction.",   color: "#ff2222" },
-          ] as { text: string; color: string }[]).map((item, i) => (
-            <span
-              key={i}
-              ref={(el) => { toWordRefs.current[i] = el }}
-              className="font-terminal text-5xl md:text-6xl tracking-widest"
-              style={{
-                position: "absolute",
-                left: 0,
-                top: 0,
-                color: item.color,
-                whiteSpace: "nowrap",
-                opacity: 0,
-              }}
-            >
-              {item.text}
-            </span>
-          ))}
+        <div className="absolute inset-0 flex flex-wrap content-start gap-x-6 gap-y-5 p-8">
+          {Array.from({ length: 200 }).map((_, i) => {
+            const phrases = [
+              { text: "To validation.", color: "#e8e8e8" },
+              { text: "To dopamine.",   color: "#00ff41" },
+              { text: "To inaction.",   color: "#ff2222" },
+            ]
+            const { text, color } = phrases[i % 3]
+            return (
+              <span
+                key={i}
+                className="font-terminal text-3xl tracking-widest whitespace-nowrap"
+                style={{ color }}
+              >
+                {text}
+              </span>
+            )
+          })}
         </div>
       </div>
 
