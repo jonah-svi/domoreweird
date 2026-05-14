@@ -116,6 +116,8 @@ body {
   color: #ffd700;
   text-shadow: 0 0 8px rgba(255,215,0,0.9), 0 0 22px rgba(255,165,0,0.5);
   animation: bounce-period 5s infinite;
+  animation-play-state: paused;
+  opacity: 0;
 }
 
 /* "weird" word — shimmering golden rainbow with aura */
