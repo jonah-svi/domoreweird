@@ -53,6 +53,7 @@ export default function Page() {
   const t2bRef = useRef<TypingHandle>(null)
   const t3aRef = useRef<TypingHandle>(null)
   const t3bRef = useRef<TypingHandle>(null)
+  const bouncePeriodRef = useRef<HTMLSpanElement>(null)
   const t4Ref  = useRef<TypingHandle>(null)
   const t4bRef = useRef<TypingHandle>(null)
   const weirdRef = useRef<HTMLSpanElement>(null)
@@ -173,9 +174,26 @@ export default function Page() {
 
       sceneTyping(s3Ref,
         () => t3aRef.current?.play(() => {
-          setTimeout(() => t3bRef.current?.play(), 200)
+          setTimeout(() => t3bRef.current?.play(() => {
+            const el = bouncePeriodRef.current
+            if (!el) return
+            el.style.animation = 'none'
+            void el.offsetHeight // force reflow to restart from frame 0
+            el.style.animation = ''
+            el.style.animationPlayState = 'running'
+            gsap.set(el, { opacity: 1 })
+          }), 200)
         }),
-        () => { t3aRef.current?.reset(); t3bRef.current?.reset() },
+        () => {
+          t3aRef.current?.reset()
+          t3bRef.current?.reset()
+          const el = bouncePeriodRef.current
+          if (el) {
+            el.style.animation = 'none'
+            el.style.animationPlayState = ''
+            gsap.set(el, { opacity: 0 })
+          }
+        },
       )
 
       sceneTyping(s4Ref,
@@ -459,7 +477,7 @@ export default function Page() {
             <TypingText ref={t3aRef} text="And yet..." showCursor={false} />
           </p>
           <p className="font-terminal text-6xl md:text-8xl tracking-wide text-white text-center">
-            <TypingText ref={t3bRef} text="we're dropping the ball" showCursor={false} /><span className="bounce-period">.</span>
+            <TypingText ref={t3bRef} text="we're dropping the ball" showCursor={false} /><span ref={bouncePeriodRef} className="bounce-period">.</span>
           </p>
         </div>
       </div>
