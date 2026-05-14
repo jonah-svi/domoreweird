@@ -27,21 +27,32 @@ export default function Page() {
   const videoWrapperRef = useRef<HTMLDivElement>(null)
 
   // Dark scene containers
-  const s1Ref = useRef<HTMLDivElement>(null)
-  const s2Ref = useRef<HTMLDivElement>(null)
-  const s3Ref = useRef<HTMLDivElement>(null)
-  const s4Ref = useRef<HTMLDivElement>(null)
-  const s5Ref = useRef<HTMLDivElement>(null)
-  const s6Ref = useRef<HTMLDivElement>(null)
-  const s7Ref = useRef<HTMLDivElement>(null)
-  const s8Ref = useRef<HTMLDivElement>(null)
+  const s1Ref   = useRef<HTMLDivElement>(null)
+  const s2Ref   = useRef<HTMLDivElement>(null)
+  const s3Ref   = useRef<HTMLDivElement>(null)
+  const s4Ref   = useRef<HTMLDivElement>(null)
+  const s5Ref   = useRef<HTMLDivElement>(null)
+  const sWhyRef = useRef<HTMLDivElement>(null)
+  const s6Ref   = useRef<HTMLDivElement>(null)
+  const s6bRef  = useRef<HTMLDivElement>(null)
+  const s6cRef  = useRef<HTMLDivElement>(null)
+  const sToRef   = useRef<HTMLDivElement>(null)
+  const s7Ref   = useRef<HTMLDivElement>(null)
+  const s7bRef  = useRef<HTMLDivElement>(null)
+  const s8Ref   = useRef<HTMLDivElement>(null)
+
+  // Why scene
+  const whyRefs        = useRef<(HTMLSpanElement | null)[]>([])
+  const whyTickerFnRef = useRef<(() => void) | null>(null)
+
 
   // Typing handles
   const t1Ref  = useRef<TypingHandle>(null)
   const t2aRef = useRef<TypingHandle>(null)
   const t2bRef = useRef<TypingHandle>(null)
-  const t3Ref  = useRef<TypingHandle>(null)
-  const t4aRef = useRef<TypingHandle>(null)
+  const t3aRef = useRef<TypingHandle>(null)
+  const t3bRef = useRef<TypingHandle>(null)
+  const t4Ref  = useRef<TypingHandle>(null)
   const t4bRef = useRef<TypingHandle>(null)
   const weirdRef = useRef<HTMLSpanElement>(null)
   const t5aRef = useRef<TypingHandle>(null)
@@ -49,11 +60,25 @@ export default function Page() {
   const t5cRef = useRef<TypingHandle>(null)
   const t6aRef = useRef<TypingHandle>(null)
   const t6bRef = useRef<TypingHandle>(null)
+  const t6dRef = useRef<TypingHandle>(null)
+  const t6fRef = useRef<TypingHandle>(null)
   const t7Ref  = useRef<TypingHandle>(null)
+  const t7bRef = useRef<TypingHandle>(null)
+  const t7cRef = useRef<TypingHandle>(null)
+  const t7dRef = useRef<TypingHandle>(null)
+  const t7eRef = useRef<TypingHandle>(null)
+  const t7fRef = useRef<TypingHandle>(null)
   const t8Ref  = useRef<TypingHandle>(null)
+
+  // Scene 1 glitch elements
+  const s1PosthogRef = useRef<HTMLParagraphElement>(null)
+  const s1WeirdRef   = useRef<HTMLParagraphElement>(null)
+  const s1TearRefs   = useRef<(HTMLParagraphElement | null)[]>([])
 
   // Final scene glitch
   const s8TagRef   = useRef<HTMLParagraphElement>(null)
+  const s8MainRef  = useRef<HTMLParagraphElement>(null)
+  const s8DemoRef  = useRef<HTMLParagraphElement>(null)
   const s8TearRefs = useRef<(HTMLParagraphElement | null)[]>([])
   const TEXT_TEARS: [number, number][] = [
     [0, 80], [15, 60], [35, 40], [57, 20], [78, 0],
@@ -96,9 +121,42 @@ export default function Page() {
         })
       }
 
+      // ── SCENE 1 GLITCH: WE ARE POSTHOG → WE ARE WEIRD ───────────
+      const s1TearColors = [
+        "hue-rotate(200deg) saturate(10)",
+        "invert(1)",
+        "hue-rotate(90deg) saturate(8)",
+        "invert(0.8) hue-rotate(300deg)",
+        "hue-rotate(150deg) saturate(6)",
+      ]
+      const s1Offsets1 = [-52, 38, -64, 30, -44]
+      const s1Offsets2 = [42, -55, 28, -48, 60]
+      const s1Tears = s1TearRefs.current
+
+      const s1GlitchTl = gsap.timeline({ paused: true })
+      s1Tears.forEach((t, i) => {
+        s1GlitchTl.to(t, { x: s1Offsets1[i], opacity: 1, filter: s1TearColors[i], duration: 0.04 }, i === 0 ? ">" : "<")
+      })
+      s1Tears.forEach((t, i) => {
+        s1GlitchTl.to(t, { x: s1Offsets2[i], duration: 0.04 }, i === 0 ? "+=0.06" : "<")
+      })
+      s1GlitchTl
+        .to(s1Tears, { x: 0, filter: "none", duration: 0.05 }, "+=0.04")
+        .set(s1PosthogRef.current, { opacity: 0 }, "<+=0.03")
+        .set(s1WeirdRef.current, { opacity: 1 }, "<")
+        .to(s1Tears, { opacity: 0, duration: 0.08 })
+
       sceneTyping(s1Ref,
-        () => t1Ref.current?.play(),
-        () => t1Ref.current?.reset(),
+        () => t1Ref.current?.play(() => {
+          setTimeout(() => s1GlitchTl.restart(), 800)
+        }),
+        () => {
+          t1Ref.current?.reset()
+          s1GlitchTl.pause(0)
+          if (s1PosthogRef.current) gsap.set(s1PosthogRef.current, { opacity: 1 })
+          if (s1WeirdRef.current) gsap.set(s1WeirdRef.current, { opacity: 0 })
+          s1TearRefs.current.forEach(t => { if (t) gsap.set(t, { opacity: 0, x: 0, filter: "none" }) })
+        },
       )
 
       sceneTyping(s2Ref,
@@ -110,20 +168,19 @@ export default function Page() {
       )
 
       sceneTyping(s3Ref,
-        () => t3Ref.current?.play(),
-        () => t3Ref.current?.reset(),
+        () => t3aRef.current?.play(() => {
+          setTimeout(() => t3bRef.current?.play(), 200)
+        }),
+        () => { t3aRef.current?.reset(); t3bRef.current?.reset() },
       )
 
       sceneTyping(s4Ref,
         () => {
-          if (weirdRef.current) gsap.set(weirdRef.current, { opacity: 0 })
-          t4aRef.current?.play(() => {
-            if (weirdRef.current) gsap.to(weirdRef.current, { opacity: 1, duration: 0.1 })
-            setTimeout(() => t4bRef.current?.play(), 150)
-          })
+          if (weirdRef.current) gsap.to(weirdRef.current, { opacity: 1, duration: 0.3 })
+          setTimeout(() => t4Ref.current?.play(() => t4bRef.current?.play()), 450)
         },
         () => {
-          t4aRef.current?.reset()
+          t4Ref.current?.reset()
           t4bRef.current?.reset()
           if (weirdRef.current) gsap.set(weirdRef.current, { opacity: 0 })
         },
@@ -138,18 +195,116 @@ export default function Page() {
         () => { t5aRef.current?.reset(); t5bRef.current?.reset(); t5cRef.current?.reset() },
       )
 
-      sceneTyping(s6Ref,
-        () => {
-          t6aRef.current?.play(() => {
-            setTimeout(() => t6bRef.current?.play(), 200)
+      // ── WHY SCENE: bouncing physics ───────────────────────────────
+      type Particle = { x: number; y: number; vx: number; vy: number }
+      let whyParticles: Particle[] = []
+
+      const startWhyScene = () => {
+        const W = window.innerWidth
+        const H = window.innerHeight
+        const els = whyRefs.current.filter((el): el is HTMLSpanElement => !!el)
+
+        // Stop any existing ticker before reinit
+        if (whyTickerFnRef.current) {
+          gsap.ticker.remove(whyTickerFnRef.current)
+          whyTickerFnRef.current = null
+        }
+
+        // Init particles below screen, staggered
+        whyParticles = els.map((el, i) => {
+          const x = 20 + Math.random() * Math.max(W - 180, 0)
+          const y = H + 20 + i * 18
+          const speed = 1.8 + Math.random() * 2.2
+          const vx = (Math.random() - 0.5) * speed
+          const vy = -(speed + Math.random() * 1.5)
+          gsap.set(el, { x, y, opacity: 1 })
+          return { x, y, vx, vy }
+        })
+
+        const fn = () => {
+          const W = window.innerWidth
+          const H = window.innerHeight
+          els.forEach((el, i) => {
+            const p = whyParticles[i]
+            if (!p) return
+            p.x += p.vx
+            p.y += p.vy
+            const elW = el.offsetWidth || 90
+            const elH = el.offsetHeight || 55
+            if (p.x < 0)         { p.x = 0;        p.vx =  Math.abs(p.vx) }
+            else if (p.x > W - elW) { p.x = W - elW; p.vx = -Math.abs(p.vx) }
+            if (p.y < 0)         { p.y = 0;        p.vy =  Math.abs(p.vy) }
+            else if (p.y > H - elH) { p.y = H - elH; p.vy = -Math.abs(p.vy) }
+            gsap.set(el, { x: p.x, y: p.y })
           })
+        }
+        whyTickerFnRef.current = fn
+        gsap.ticker.add(fn)
+      }
+
+      const stopWhyScene = () => {
+        if (whyTickerFnRef.current) {
+          gsap.ticker.remove(whyTickerFnRef.current)
+          whyTickerFnRef.current = null
+        }
+        const els = whyRefs.current.filter((el): el is HTMLSpanElement => !!el)
+        gsap.killTweensOf(els)
+        els.forEach(el => gsap.set(el, { opacity: 0 }))
+        whyParticles = []
+      }
+
+      ScrollTrigger.create({
+        trigger: sWhyRef.current,
+        start: "top 65%",
+        onEnter: startWhyScene,
+        onLeaveBack: stopWhyScene,
+        onLeave: () => {
+          if (whyTickerFnRef.current) {
+            gsap.ticker.remove(whyTickerFnRef.current)
+            whyTickerFnRef.current = null
+          }
         },
+        onEnterBack: startWhyScene,
+      })
+
+      sceneTyping(s6Ref,
+        () => { t6aRef.current?.play(() => setTimeout(() => t6bRef.current?.play(), 200)) },
         () => { t6aRef.current?.reset(); t6bRef.current?.reset() },
       )
+
+      sceneTyping(s6bRef,
+        () => t6dRef.current?.play(),
+        () => t6dRef.current?.reset(),
+      )
+
+      sceneTyping(s6cRef,
+        () => t6fRef.current?.play(),
+        () => t6fRef.current?.reset(),
+      )
+
 
       sceneTyping(s7Ref,
         () => t7Ref.current?.play(),
         () => t7Ref.current?.reset(),
+      )
+
+      sceneTyping(s7bRef,
+        () => t7bRef.current?.play(() =>
+          t7cRef.current?.play(() =>
+            t7dRef.current?.play(() =>
+              t7eRef.current?.play(() =>
+                t7fRef.current?.play()
+              )
+            )
+          )
+        ),
+        () => {
+          t7bRef.current?.reset()
+          t7cRef.current?.reset()
+          t7dRef.current?.reset()
+          t7eRef.current?.reset()
+          t7fRef.current?.reset()
+        },
       )
 
       sceneTyping(s8Ref,
@@ -179,12 +334,16 @@ export default function Page() {
       tears.forEach((t, i) => {
         loopTl.to(t, { x: tearOffsets2[i], duration: 0.04 }, i === 0 ? "+=0.06" : "<")
       })
+      loopTl.set(s8DemoRef.current, { opacity: 1 }, "<")
+      loopTl.set(s8MainRef.current, { opacity: 0 }, "<")
 
       loopTl
         .to(tears, { x: 0, opacity: 0, filter: "none", duration: 0.05 }, "+=0.04")
         .to(s8TagRef.current, { opacity: 0.3, duration: 0.03 }, "<")
         .to(s8TagRef.current, { opacity: 0,   duration: 0.02 })
         .to(s8TagRef.current, { opacity: 1,   duration: 0.05 })
+        .to(s8DemoRef.current, { opacity: 0,  duration: 0.3 }, "+=0.7")
+        .set(s8MainRef.current, { opacity: 1 }, "<")
 
       loopTl
         .to(tears[1], { x: -30, opacity: 1, filter: tearColors[1], duration: 0.03 }, "+=0.5")
@@ -203,7 +362,10 @@ export default function Page() {
 
     }, mainRef)
 
-    return () => ctx.revert()
+    return () => {
+      if (whyTickerFnRef.current) gsap.ticker.remove(whyTickerFnRef.current)
+      ctx.revert()
+    }
   }, [])
 
   return (
@@ -243,96 +405,171 @@ export default function Page() {
 
       <div ref={s1Ref} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
-        <TypingText
-          ref={t1Ref}
-          text="WE ARE POSTHOG."
-          className="relative z-10 font-terminal text-7xl md:text-9xl tracking-widest text-white text-center px-8"
-        />
+        <div className="relative z-10">
+          {/* Types in first */}
+          <p ref={s1PosthogRef} className="font-terminal text-7xl md:text-9xl tracking-widest text-white text-center px-8">
+            <TypingText ref={t1Ref} text="WE ARE POSTHOG." />
+          </p>
+          {/* Revealed after glitch settles */}
+          <p ref={s1WeirdRef} className="font-terminal absolute inset-0 text-7xl md:text-9xl tracking-widest text-white text-center px-8 flex items-center justify-center" style={{ opacity: 0 }}>
+            WE ARE WEIRD.
+          </p>
+          {/* Tear bands showing WE ARE WEIRD. — GSAP drives x + filter */}
+          {TEXT_TEARS.map(([top, bottom], i) => (
+            <p
+              key={i}
+              ref={(el) => { s1TearRefs.current[i] = el }}
+              className="font-terminal absolute inset-0 text-7xl md:text-9xl tracking-widest text-white text-center px-8 flex items-center justify-center pointer-events-none"
+              style={{ clipPath: `inset(${top}% 0 ${bottom}% 0)`, opacity: 0 }}
+              aria-hidden
+            >
+              WE ARE WEIRD.
+            </p>
+          ))}
+        </div>
       </div>
 
       <div ref={s2Ref} className="relative h-screen bg-[#050505] flex flex-col items-center justify-center gap-6 overflow-hidden">
         <Scanlines />
-        <TypingText
-          ref={t2aRef}
-          text="WE DO NOT FORGIVE BORING."
-          className="relative z-10 font-terminal text-4xl md:text-6xl tracking-widest text-[#00ff41] text-center px-8"
-          showCursor={false}
-        />
-        <TypingText
-          ref={t2bRef}
-          text="WE DO NOT FORGET."
-          className="relative z-10 font-terminal text-4xl md:text-6xl tracking-widest text-[#00ff41] text-center px-8"
-          charDelay={0.055}
-        />
+        <p className="relative z-10 font-terminal text-4xl md:text-6xl tracking-widest text-[#00ff41] text-center px-8">
+          <TypingText ref={t2aRef} text="WE DO NOT FORGIVE BORING." showCursor={false} />
+        </p>
+        <p className="relative z-10 font-terminal text-4xl md:text-6xl tracking-widest text-[#00ff41] text-center px-8">
+          <TypingText ref={t2bRef} text="WE DO NOT FORGET." charDelay={0.055} />
+        </p>
       </div>
 
       <div ref={s3Ref} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
-        <p className="relative z-10 font-terminal text-6xl md:text-8xl tracking-wide text-white text-center px-8">
-          <TypingText
-            ref={t3Ref}
-            text="And yet we're dropping the ball"
-            showCursor={false}
-          /><span className="bounce-period">.</span>
-        </p>
+        <div className="relative z-10 flex flex-col items-center gap-4 px-8">
+          <p className="font-terminal text-6xl md:text-8xl tracking-wide text-white text-center">
+            <TypingText ref={t3aRef} text="And yet..." showCursor={false} />
+          </p>
+          <p className="font-terminal text-6xl md:text-8xl tracking-wide text-white text-center">
+            <TypingText ref={t3bRef} text="we're dropping the ball" showCursor={false} /><span className="bounce-period">.</span>
+          </p>
+        </div>
       </div>
 
       <div ref={s4Ref} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
-        <p className="relative z-10 text-3xl md:text-4xl text-gray-400 italic text-center max-w-2xl leading-relaxed px-8">
-          <TypingText ref={t4aRef} text="You had a " showCursor={false} /><span
-            ref={weirdRef}
-            className="weird-word not-italic"
-            style={{ opacity: 0 }}
-          >weird</span><TypingText ref={t4bRef} text=" idea." charDelay={0.07} />
-        </p>
+        <div className="relative z-10 flex flex-col items-center gap-2 px-8">
+          <p className="text-3xl md:text-4xl text-gray-400 italic text-center leading-relaxed">
+            <span ref={weirdRef} className="weird-word not-italic" style={{ opacity: 0 }}>Weird</span><TypingText ref={t4Ref} text=" ideas are dying in" showCursor={false} charDelay={0.05} />
+          </p>
+          <p className="text-3xl md:text-4xl text-gray-400 italic text-center whitespace-nowrap leading-relaxed">
+            <TypingText ref={t4bRef} text="#do-more-weird." charDelay={0.05} />
+          </p>
+        </div>
       </div>
 
       <div ref={s5Ref} className="relative h-screen bg-[#050505] flex flex-col items-center justify-center gap-6 overflow-hidden">
         <Scanlines />
         <p className="relative z-10 text-xl md:text-2xl text-gray-500 text-center">
-          <TypingText ref={t5aRef} text="You posted it in #do-more-weird." showCursor={false} />
+          <TypingText ref={t5aRef} text="We post in #do-more-weird." showCursor={false} />
         </p>
         <p className="relative z-10 text-xl md:text-2xl text-gray-500 text-center">
-          <TypingText ref={t5bRef} text="We gave you the fire emoji." showCursor={false} />
+          <TypingText ref={t5bRef} text="We give each other fire emojis." showCursor={false} />
         </p>
         <p className="relative z-10 font-terminal text-5xl md:text-7xl text-white text-center">
-          <TypingText ref={t5cRef} text="Nothing was built." />
+          <TypingText ref={t5cRef} text="Nothing gets built." />
         </p>
+      </div>
+
+      {/* ── WHY SCENE ──────────────────────────────────────────────── */}
+      <div ref={sWhyRef} className="relative h-screen bg-[#050505] overflow-hidden">
+        <Scanlines />
+        {Array.from({ length: 28 }).map((_, i) => (
+          <span
+            key={i}
+            ref={(el) => { whyRefs.current[i] = el }}
+            className={`font-terminal absolute pointer-events-none select-none ${
+              ["text-4xl","text-5xl","text-6xl","text-7xl","text-5xl","text-6xl","text-4xl"][i % 7]
+            }`}
+            style={{
+              opacity: 0,
+              color: ["#ffffff","#ffffff","#00ff41","#ffffff","#ffffff","#00ff41","#ffffff","#ffffff"][i % 8],
+            }}
+          >
+            Why?
+          </span>
+        ))}
       </div>
 
       <div ref={s6Ref} className="relative h-screen bg-[#050505] flex flex-col items-center justify-center gap-5 overflow-hidden">
         <Scanlines />
-        <TypingText
-          ref={t6aRef}
-          text="You have been..."
-          className="relative z-10 text-sm tracking-[0.4em] text-gray-500 uppercase"
-          showCursor={false}
-          charDelay={0.07}
-        />
-        <TypingText
-          ref={t6bRef}
-          text="comfortable."
-          className="relative z-10 font-terminal text-8xl md:text-[12rem] text-white italic leading-none"
-          charDelay={0.09}
-        />
+        <p className="relative z-10 text-sm tracking-[0.4em] text-gray-500 uppercase text-center">
+          <TypingText ref={t6aRef} text="We have become..." showCursor={false} charDelay={0.07} />
+        </p>
+        <p className="relative z-10 font-terminal text-8xl md:text-[12rem] text-white italic leading-none text-center">
+          <TypingText ref={t6bRef} text="comfortable." charDelay={0.09} />
+        </p>
+      </div>
+
+      <div ref={s6bRef} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
+        <Scanlines />
+        <p className="relative z-10 font-terminal text-8xl md:text-[12rem] text-white italic leading-none text-center">
+          <TypingText ref={t6dRef} text="complacent." charDelay={0.09} />
+        </p>
+      </div>
+
+      <div ref={s6cRef} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
+        <Scanlines />
+        <p className="relative z-10 font-terminal text-8xl md:text-[12rem] text-white italic leading-none text-center">
+          <TypingText ref={t6fRef} text="conditioned." charDelay={0.09} />
+        </p>
+      </div>
+
+      <div ref={sToRef} className="relative h-screen bg-[#050505] overflow-hidden">
+        <Scanlines />
+        <div className="absolute inset-0 flex flex-wrap content-start gap-x-6 gap-y-5 p-8">
+          {Array.from({ length: 200 }).map((_, i) => {
+            const phrases = [
+              { text: "To validation.", color: "#e8e8e8" },
+              { text: "To dopamine.",   color: "#00ff41" },
+              { text: "To inaction.",   color: "#ff2222" },
+            ]
+            const { text, color } = phrases[i % 3]
+            return (
+              <span
+                key={i}
+                className="font-terminal text-3xl tracking-widest whitespace-nowrap"
+                style={{ color }}
+              >
+                {text}
+              </span>
+            )
+          })}
+        </div>
       </div>
 
       <div ref={s7Ref} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
-        <TypingText
-          ref={t7Ref}
-          text="This ends now."
-          className="relative z-10 font-terminal text-7xl md:text-9xl text-[#ff2222] tracking-wide text-center px-8"
-          charDelay={0.07}
-        />
+        <p className="relative z-10 font-terminal text-7xl md:text-9xl text-[#ff2222] tracking-wide text-center px-8">
+          <TypingText ref={t7Ref} text="This ends now." charDelay={0.07} />
+        </p>
+      </div>
+
+      <div ref={s7bRef} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
+        <Scanlines />
+        <div className="relative z-10 flex flex-col gap-8 px-12 max-w-4xl w-full">
+          <p className="font-terminal text-5xl md:text-6xl text-[#ff2222] tracking-wide text-center">
+            <TypingText ref={t7bRef} text="Here are our demands:" showCursor={false} charDelay={0.06} />
+          </p>
+          <div className="flex flex-col gap-5 text-lg md:text-xl text-white leading-relaxed">
+            <p><TypingText ref={t7cRef} text="1) Change #do-more-weird to #demo-more-weird." showCursor={false} charDelay={0.03} /></p>
+            <p><TypingText ref={t7dRef} text="2) Redirect ideas that need conspirators/money to RFCs for better visibility and documentation." showCursor={false} charDelay={0.02} /></p>
+            <p><TypingText ref={t7eRef} text="3) If given a choice, go live. If you can't go live, reduce the task size so you can." showCursor={false} charDelay={0.025} /></p>
+            <p><TypingText ref={t7fRef} text="4) If you want to shitpost or joke, do it elsewhere. This is a place for action." charDelay={0.025} /></p>
+          </div>
+        </div>
       </div>
 
       <div ref={s8Ref} className="relative h-screen bg-[#050505] flex flex-col items-center justify-center px-8 overflow-hidden">
         <Scanlines />
         <div className="relative z-10 flex flex-col items-center gap-8">
-          <div className="relative">
-            <p className="font-terminal text-7xl md:text-[10rem] text-white tracking-widest text-center leading-none">
+          <div className="relative overflow-hidden">
+            <p ref={s8MainRef} className="font-terminal text-7xl md:text-[10rem] text-white tracking-widest text-center leading-none">
               <TypingText ref={t8Ref} text="DO MORE WEIRD." charDelay={0.06} />
             </p>
             {TEXT_TEARS.map(([top, bottom], i) => (
@@ -346,6 +583,14 @@ export default function Page() {
                 DO MORE WEIRD.
               </p>
             ))}
+            <p
+              ref={s8DemoRef}
+              className="font-terminal absolute inset-0 text-7xl md:text-[10rem] text-[#00ff41] tracking-widest text-center leading-none pointer-events-none"
+              style={{ opacity: 0 }}
+              aria-hidden
+            >
+              DEMO MORE WEIRD.
+            </p>
           </div>
           <p ref={s8TagRef} className="text-gray-600 tracking-widest text-sm">[ TRANSMISSION TERMINATED ]</p>
         </div>
