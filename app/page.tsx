@@ -39,6 +39,7 @@ export default function Page() {
   const sToRef   = useRef<HTMLDivElement>(null)
   const s7Ref   = useRef<HTMLDivElement>(null)
   const s7bRef  = useRef<HTMLDivElement>(null)
+  const s7cRef  = useRef<HTMLDivElement>(null)
   const s8Ref   = useRef<HTMLDivElement>(null)
 
   // Why scene
@@ -68,6 +69,9 @@ export default function Page() {
   const t7dRef = useRef<TypingHandle>(null)
   const t7eRef = useRef<TypingHandle>(null)
   const t7fRef = useRef<TypingHandle>(null)
+  const t7gRef = useRef<TypingHandle>(null)
+  const t7hRef = useRef<TypingHandle>(null)
+  const t7iRef = useRef<TypingHandle>(null)
   const t8Ref  = useRef<TypingHandle>(null)
 
   // Scene 1 glitch elements
@@ -305,6 +309,15 @@ export default function Page() {
           t7eRef.current?.reset()
           t7fRef.current?.reset()
         },
+      )
+
+      sceneTyping(s7cRef,
+        () => t7gRef.current?.play(() =>
+          t7hRef.current?.play(() =>
+            t7iRef.current?.play()
+          )
+        ),
+        () => { t7gRef.current?.reset(); t7hRef.current?.reset(); t7iRef.current?.reset() },
       )
 
       sceneTyping(s8Ref,
@@ -562,6 +575,21 @@ export default function Page() {
             <p><TypingText ref={t7eRef} text="3) If given a choice, go live. If you can't go live, reduce the task size so you can." showCursor={false} charDelay={0.025} /></p>
             <p><TypingText ref={t7fRef} text="4) If you want to shitpost or joke, do it elsewhere. This is a place for action." charDelay={0.025} /></p>
           </div>
+        </div>
+      </div>
+
+      <div ref={s7cRef} className="relative h-screen bg-[#050505] flex flex-col items-center justify-center gap-8 px-12 overflow-hidden">
+        <Scanlines />
+        <div className="relative z-10 flex flex-col items-center gap-6 max-w-3xl text-center">
+          <p className="text-xl md:text-2xl text-gray-400 leading-relaxed text-center">
+            <TypingText ref={t7gRef} text="This affirms our core values should be honored and not just talked about." showCursor={false} charDelay={0.03} />
+          </p>
+          <p className="font-terminal text-6xl md:text-8xl text-white tracking-wide text-center">
+            <TypingText ref={t7hRef} text="No increased bureaucracy." showCursor={false} charDelay={0.05} />
+          </p>
+          <p className="font-terminal text-6xl md:text-8xl text-[#00ff41] tracking-wide text-center">
+            <TypingText ref={t7iRef} text="Just do more weird." charDelay={0.05} />
+          </p>
         </div>
       </div>
 
