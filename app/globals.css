@@ -9,8 +9,12 @@
 body {
   background: #050505;
   color: #e8e8e8;
-  font-family: var(--font-space-mono), "Courier New", monospace;
+  font-family: var(--font-jetbrains), "Courier New", monospace;
   overflow-x: hidden;
+}
+
+@utility font-terminal {
+  font-family: var(--font-vt323), monospace;
 }
 
 /* Animated glitch slice overlays — opacity driven by GSAP */
@@ -75,6 +79,81 @@ body {
 
 .tag-loop {
   animation: tag-flicker 6s infinite;
+}
+
+/* Bouncing period physics — falls, squishes on impact, damps to rest */
+@keyframes bounce-period {
+  /* Drop */
+  0%    { transform: translateY(-160px) scaleX(1)    scaleY(1);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  /* Impact 1 — biggest squish */
+  10%   { transform: translateY(0)      scaleX(1.75) scaleY(0.38); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  /* Rise 1 */
+  17%   { transform: translateY(-80px)  scaleX(1)    scaleY(1);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  /* Impact 2 */
+  24%   { transform: translateY(0)      scaleX(1.5)  scaleY(0.55); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  /* Rise 2 */
+  29%   { transform: translateY(-40px)  scaleX(1)    scaleY(1);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  /* Impact 3 */
+  34%   { transform: translateY(0)      scaleX(1.3)  scaleY(0.68); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  /* Rise 3 */
+  37.5% { transform: translateY(-20px)  scaleX(1)    scaleY(1);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  /* Impact 4 */
+  41%   { transform: translateY(0)      scaleX(1.18) scaleY(0.82); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  /* Rise 4 */
+  43.5% { transform: translateY(-9px)   scaleX(1)    scaleY(1);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  /* Impact 5 */
+  46%   { transform: translateY(0)      scaleX(1.08) scaleY(0.92); animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1); }
+  /* Rise 5 */
+  47.5% { transform: translateY(-4px)   scaleX(1)    scaleY(1);    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  /* Settle */
+  49%   { transform: translateY(0)      scaleX(1.02) scaleY(0.98); }
+  51%, 100% { transform: translateY(0)  scaleX(1)    scaleY(1); }
+}
+
+.bounce-period {
+  display: inline-block;
+  transform-origin: bottom center;
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255,215,0,0.9), 0 0 22px rgba(255,165,0,0.5);
+  animation: bounce-period 5s infinite;
+}
+
+/* "weird" word — shimmering golden rainbow with aura */
+@keyframes shimmer-rainbow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes aura-pulse {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 6px rgba(255,215,0,0.95))
+      drop-shadow(0 0 18px rgba(255,165,0,0.65))
+      drop-shadow(0 0 40px rgba(255,200,0,0.30));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 10px rgba(255,215,0,1))
+      drop-shadow(0 0 28px rgba(255,100,0,0.80))
+      drop-shadow(0 0 60px rgba(255,220,0,0.45));
+  }
+}
+
+.weird-word {
+  background: linear-gradient(
+    90deg,
+    #ffd700, #ffb700, #ff8c00,
+    #ff6bcb, #a78bfa, #67e8f9,
+    #a3e635, #ffd700, #ffb700,
+    #ff8c00, #ffd700
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation:
+    shimmer-rainbow 2.4s linear infinite,
+    aura-pulse 2s ease-in-out infinite;
 }
 
 /* Cursor blink for terminal text */

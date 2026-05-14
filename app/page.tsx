@@ -155,53 +155,53 @@ export default function Page() {
         {/* ── DARK SCENES ───────────────────────────────────────────── */}
 
         <div ref={s1Ref} className="absolute inset-0 z-10 flex items-center justify-center" style={{ opacity: 0 }}>
-          <p className="text-5xl md:text-7xl font-bold tracking-widest text-white text-center cursor-blink px-8">
+          <p className="font-terminal text-7xl md:text-9xl tracking-widest text-white text-center cursor-blink px-8">
             WE ARE POSTHOG.
           </p>
         </div>
 
         <div ref={s2Ref} className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6" style={{ opacity: 0 }}>
-          <p className="text-xl md:text-3xl tracking-widest text-[#00ff41] text-center px-8">WE DO NOT FORGIVE BORING.</p>
-          <p className="text-xl md:text-3xl tracking-widest text-[#00ff41] text-center px-8">WE DO NOT FORGET.</p>
+          <p className="font-terminal text-4xl md:text-6xl tracking-widest text-[#00ff41] text-center px-8">WE DO NOT FORGIVE BORING.</p>
+          <p className="font-terminal text-4xl md:text-6xl tracking-widest text-[#00ff41] text-center px-8">WE DO NOT FORGET.</p>
         </div>
 
         <div ref={s3Ref} className="absolute inset-0 z-10 flex items-center justify-center" style={{ opacity: 0 }}>
-          <p className="text-5xl md:text-6xl font-bold tracking-[0.25em] text-white text-center px-8">EXPECT US.</p>
+          <p className="font-terminal text-6xl md:text-8xl tracking-wide text-white text-center px-8">And yet we&apos;re dropping the ball<span className="bounce-period">.</span></p>
         </div>
 
         <div ref={s4Ref} className="absolute inset-0 z-10 flex items-center justify-center" style={{ opacity: 0 }}>
-          <p className="text-2xl md:text-3xl text-gray-400 italic text-center max-w-2xl leading-relaxed px-8">
-            You had a weird idea.
+          <p className="text-3xl md:text-4xl text-gray-400 italic text-center max-w-2xl leading-relaxed px-8">
+            You had a <span className="weird-word not-italic">weird</span> idea.
           </p>
         </div>
 
         <div ref={s5Ref} className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6" style={{ opacity: 0 }}>
           <p className="text-xl md:text-2xl text-gray-500 text-center">You posted it in #do-more-weird.</p>
           <p className="text-xl md:text-2xl text-gray-500 text-center">We gave you the fire emoji.</p>
-          <p className="text-3xl md:text-5xl font-bold text-white text-center">Nothing was built.</p>
+          <p className="font-terminal text-5xl md:text-7xl text-white text-center">Nothing was built.</p>
         </div>
 
         <div ref={s6Ref} className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-5" style={{ opacity: 0 }}>
           <p className="text-sm tracking-[0.4em] text-gray-500 uppercase">You have been...</p>
-          <p className="text-6xl md:text-9xl font-bold text-white italic">comfortable.</p>
+          <p className="font-terminal text-8xl md:text-[12rem] text-white italic leading-none">comfortable.</p>
         </div>
 
         <div ref={s7Ref} className="absolute inset-0 z-10 flex items-center justify-center" style={{ opacity: 0 }}>
-          <p className="text-5xl md:text-7xl font-bold text-[#ff2222] tracking-wide text-center px-8">This ends now.</p>
+          <p className="font-terminal text-7xl md:text-9xl text-[#ff2222] tracking-wide text-center px-8">This ends now.</p>
         </div>
 
         <div ref={s8Ref} className="absolute inset-0 z-10 flex flex-col items-center justify-center px-8" style={{ opacity: 0 }}>
           <div className="flex flex-col items-center gap-8">
             {/* Text + tear band clones stacked */}
             <div className="relative">
-              <p ref={s8TextRef} className="text-5xl md:text-8xl font-bold text-white tracking-widest text-center leading-none">
+              <p ref={s8TextRef} className="font-terminal text-7xl md:text-[10rem] text-white tracking-widest text-center leading-none">
                 DO MORE WEIRD.
               </p>
               {TEXT_TEARS.map(([top, bottom], i) => (
                 <p
                   key={i}
                   ref={(el) => { s8TearRefs.current[i] = el }}
-                  className="absolute inset-0 text-5xl md:text-8xl font-bold text-white tracking-widest text-center leading-none pointer-events-none"
+                  className="font-terminal absolute inset-0 text-7xl md:text-[10rem] text-white tracking-widest text-center leading-none pointer-events-none"
                   style={{ clipPath: `inset(${top}% 0 ${bottom}% 0)`, opacity: 0 }}
                   aria-hidden
                 >
