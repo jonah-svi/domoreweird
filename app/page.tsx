@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ── Swap this for your YouTube embed URL when ready ──────────────────────────
 // e.g. "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0"
-const VIDEO_URL = "https://www.youtube.com/embed/KCGYPrfhXRQ?si=KEVvAIro1TJ26UG_&rel=0&loop=1&playlist=KCGYPrfhXRQ"
+const VIDEO_URL = "https://www.youtube.com/embed/KCGYPrfhXRQ?si=KEVvAIro1TJ26UG_&rel=0"
 
 const Scanlines = () => (
   <div
