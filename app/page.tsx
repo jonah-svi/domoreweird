@@ -438,11 +438,11 @@ export default function Page() {
         <Scanlines />
         <div className="relative z-10">
           {/* Types in first */}
-          <p ref={s1PosthogRef} className="font-terminal text-7xl md:text-9xl tracking-widest text-white text-center px-8">
+          <p ref={s1PosthogRef} className="font-terminal text-3xl sm:text-5xl md:text-7xl lg:text-9xl tracking-wide md:tracking-widest text-white text-center px-6">
             <TypingText ref={t1Ref} text="WE ARE POSTHOG." />
           </p>
           {/* Revealed after glitch settles */}
-          <p ref={s1WeirdRef} className="font-terminal absolute inset-0 text-7xl md:text-9xl tracking-widest text-white text-center px-8 flex items-center justify-center" style={{ opacity: 0 }}>
+          <p ref={s1WeirdRef} className="font-terminal absolute inset-0 text-3xl sm:text-5xl md:text-7xl lg:text-9xl tracking-wide md:tracking-widest text-white text-center px-6 flex items-center justify-center" style={{ opacity: 0 }}>
             WE ARE WEIRD.
           </p>
           {/* Tear bands showing WE ARE WEIRD. — GSAP drives x + filter */}
@@ -450,7 +450,7 @@ export default function Page() {
             <p
               key={i}
               ref={(el) => { s1TearRefs.current[i] = el }}
-              className="font-terminal absolute inset-0 text-7xl md:text-9xl tracking-widest text-white text-center px-8 flex items-center justify-center pointer-events-none"
+              className="font-terminal absolute inset-0 text-3xl sm:text-5xl md:text-7xl lg:text-9xl tracking-wide md:tracking-widest text-white text-center px-6 flex items-center justify-center pointer-events-none"
               style={{ clipPath: `inset(${top}% 0 ${bottom}% 0)`, opacity: 0 }}
               aria-hidden
             >
@@ -462,10 +462,10 @@ export default function Page() {
 
       <div ref={s2Ref} className="relative h-screen bg-[#050505] flex flex-col items-center justify-center gap-6 overflow-hidden">
         <Scanlines />
-        <p className="relative z-10 font-terminal text-4xl md:text-6xl tracking-widest text-[#00ff41] text-center px-8">
+        <p className="relative z-10 font-terminal text-2xl sm:text-3xl md:text-6xl tracking-wide md:tracking-widest text-[#00ff41] text-center px-6">
           <TypingText ref={t2aRef} text="WE DO NOT FORGIVE BORING." showCursor={false} />
         </p>
-        <p className="relative z-10 font-terminal text-4xl md:text-6xl tracking-widest text-[#00ff41] text-center px-8">
+        <p className="relative z-10 font-terminal text-2xl sm:text-3xl md:text-6xl tracking-wide md:tracking-widest text-[#00ff41] text-center px-6">
           <TypingText ref={t2bRef} text="WE DO NOT FORGET." charDelay={0.055} />
         </p>
       </div>
@@ -473,10 +473,10 @@ export default function Page() {
       <div ref={s3Ref} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
         <div className="relative z-10 flex flex-col items-center gap-4 px-8">
-          <p className="font-terminal text-6xl md:text-8xl tracking-wide text-white text-center">
+          <p className="font-terminal text-3xl sm:text-4xl md:text-6xl lg:text-8xl tracking-wide text-white text-center">
             <TypingText ref={t3aRef} text="And yet..." showCursor={false} />
           </p>
-          <p className="font-terminal text-6xl md:text-8xl tracking-wide text-white text-center">
+          <p className="font-terminal text-3xl sm:text-4xl md:text-6xl lg:text-8xl tracking-wide text-white text-center">
             <TypingText ref={t3bRef} text="we're dropping the ball" showCursor={false} /><span ref={bouncePeriodRef} className="bounce-period">.</span>
           </p>
         </div>
@@ -485,10 +485,10 @@ export default function Page() {
       <div ref={s4Ref} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
         <div className="relative z-10 flex flex-col items-center gap-2 px-8">
-          <p className="text-3xl md:text-4xl text-gray-400 italic text-center leading-relaxed">
+          <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-400 italic text-center leading-relaxed">
             <span ref={weirdRef} className="weird-word not-italic" style={{ opacity: 0 }}>Weird</span><TypingText ref={t4Ref} text=" ideas are dying in" showCursor={false} charDelay={0.05} />
           </p>
-          <p className="text-3xl md:text-4xl text-gray-400 italic text-center whitespace-nowrap leading-relaxed">
+          <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-400 italic text-center whitespace-nowrap leading-relaxed">
             <TypingText ref={t4bRef} text="#do-more-weird." charDelay={0.05} />
           </p>
         </div>
@@ -496,13 +496,13 @@ export default function Page() {
 
       <div ref={s5Ref} className="relative h-screen bg-[#050505] flex flex-col items-center justify-center gap-6 overflow-hidden">
         <Scanlines />
-        <p className="relative z-10 text-xl md:text-2xl text-gray-500 text-center">
+        <p className="relative z-10 text-base sm:text-xl md:text-2xl text-gray-500 text-center px-6">
           <TypingText ref={t5aRef} text="We post in #do-more-weird." showCursor={false} />
         </p>
-        <p className="relative z-10 text-xl md:text-2xl text-gray-500 text-center">
+        <p className="relative z-10 text-base sm:text-xl md:text-2xl text-gray-500 text-center px-6">
           <TypingText ref={t5bRef} text="We give each other fire emojis." showCursor={false} />
         </p>
-        <p className="relative z-10 font-terminal text-5xl md:text-7xl text-white text-center">
+        <p className="relative z-10 font-terminal text-3xl sm:text-5xl md:text-7xl text-white text-center px-6">
           <TypingText ref={t5cRef} text="Nothing gets built." />
         </p>
       </div>
@@ -532,28 +532,28 @@ export default function Page() {
         <p className="relative z-10 text-sm tracking-[0.4em] text-gray-500 uppercase text-center">
           <TypingText ref={t6aRef} text="We have become..." showCursor={false} charDelay={0.07} />
         </p>
-        <p className="relative z-10 font-terminal text-8xl md:text-[12rem] text-white italic leading-none text-center">
+        <p className="relative z-10 font-terminal text-5xl sm:text-6xl md:text-8xl lg:text-[12rem] text-white italic leading-none text-center px-4">
           <TypingText ref={t6bRef} text="comfortable." charDelay={0.09} />
         </p>
       </div>
 
       <div ref={s6bRef} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
-        <p className="relative z-10 font-terminal text-8xl md:text-[12rem] text-white italic leading-none text-center">
+        <p className="relative z-10 font-terminal text-5xl sm:text-6xl md:text-8xl lg:text-[12rem] text-white italic leading-none text-center px-4">
           <TypingText ref={t6dRef} text="complacent." charDelay={0.09} />
         </p>
       </div>
 
       <div ref={s6cRef} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
-        <p className="relative z-10 font-terminal text-8xl md:text-[12rem] text-white italic leading-none text-center">
+        <p className="relative z-10 font-terminal text-5xl sm:text-6xl md:text-8xl lg:text-[12rem] text-white italic leading-none text-center px-4">
           <TypingText ref={t6fRef} text="conditioned." charDelay={0.09} />
         </p>
       </div>
 
       <div ref={sToRef} className="relative h-screen bg-[#050505] overflow-hidden">
         <Scanlines />
-        <div className="absolute inset-0 flex flex-wrap content-start gap-x-6 gap-y-5 p-8">
+        <div className="absolute inset-0 flex flex-wrap content-start gap-x-2 sm:gap-x-5 md:gap-x-6 gap-y-2 sm:gap-y-4 md:gap-y-5 p-0 md:p-8">
           {Array.from({ length: 200 }).map((_, i) => {
             const phrases = [
               { text: "To validation.", color: "#e8e8e8" },
@@ -564,7 +564,7 @@ export default function Page() {
             return (
               <span
                 key={i}
-                className="font-terminal text-3xl tracking-widest whitespace-nowrap"
+                className="font-terminal text-xl sm:text-2xl md:text-3xl tracking-widest whitespace-nowrap"
                 style={{ color }}
               >
                 {text}
@@ -576,18 +576,18 @@ export default function Page() {
 
       <div ref={s7Ref} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
-        <p className="relative z-10 font-terminal text-7xl md:text-9xl text-[#ff2222] tracking-wide text-center px-8">
+        <p className="relative z-10 font-terminal text-4xl sm:text-6xl md:text-7xl lg:text-9xl text-[#ff2222] tracking-wide text-center px-6">
           <TypingText ref={t7Ref} text="This ends now." charDelay={0.07} />
         </p>
       </div>
 
-      <div ref={s7bRef} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
+      <div ref={s7bRef} className="relative min-h-screen md:h-screen bg-[#050505] flex items-center justify-center overflow-hidden py-16 md:py-0">
         <Scanlines />
-        <div className="relative z-10 flex flex-col gap-8 px-12 max-w-4xl w-full">
-          <p className="font-terminal text-5xl md:text-6xl text-[#ff2222] tracking-wide text-center">
+        <div className="relative z-10 flex flex-col gap-3 sm:gap-6 px-4 sm:px-8 md:px-12 max-w-4xl w-full">
+          <p className="font-terminal text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-[#ff2222] tracking-wide text-center">
             <TypingText ref={t7bRef} text="Here are our demands:" showCursor={false} charDelay={0.06} />
           </p>
-          <div className="flex flex-col gap-5 text-lg md:text-xl text-white leading-relaxed">
+          <div className="flex flex-col gap-2 sm:gap-4 text-sm sm:text-lg md:text-xl text-white leading-snug sm:leading-relaxed">
             <p><TypingText ref={t7cRef} text="1) Change #do-more-weird to #demo-more-weird." showCursor={false} charDelay={0.03} /></p>
             <p><TypingText ref={t7dRef} text="2) Redirect ideas that need conspirators/money to RFCs for better visibility and documentation." showCursor={false} charDelay={0.02} /></p>
             <p><TypingText ref={t7eRef} text="3) If given a choice, go live. If you can't go live, reduce the task size so you can." showCursor={false} charDelay={0.025} /></p>
@@ -596,16 +596,16 @@ export default function Page() {
         </div>
       </div>
 
-      <div ref={s7cRef} className="relative h-screen bg-[#050505] flex flex-col items-center justify-center gap-8 px-12 overflow-hidden">
+      <div ref={s7cRef} className="relative h-screen bg-[#050505] flex flex-col items-center justify-center gap-8 px-4 sm:px-8 md:px-12 overflow-hidden">
         <Scanlines />
-        <div className="relative z-10 flex flex-col items-center gap-6 max-w-3xl text-center">
-          <p className="text-xl md:text-2xl text-gray-400 leading-relaxed text-center">
+        <div className="relative z-10 flex flex-col items-center gap-5 max-w-3xl text-center">
+          <p className="text-base sm:text-xl md:text-2xl text-gray-400 leading-relaxed text-center">
             <TypingText ref={t7gRef} text="This affirms our core values should be honored and not just talked about." showCursor={false} charDelay={0.03} />
           </p>
-          <p className="font-terminal text-6xl md:text-8xl text-white tracking-wide text-center">
+          <p className="font-terminal text-3xl sm:text-4xl md:text-6xl lg:text-8xl text-white tracking-wide text-center">
             <TypingText ref={t7hRef} text="No increased bureaucracy." showCursor={false} charDelay={0.05} />
           </p>
-          <p className="font-terminal text-6xl md:text-8xl text-[#00ff41] tracking-wide text-center">
+          <p className="font-terminal text-3xl sm:text-4xl md:text-6xl lg:text-8xl text-[#00ff41] tracking-wide text-center">
             <TypingText ref={t7iRef} text="Just do more weird." charDelay={0.05} />
           </p>
         </div>
@@ -615,14 +615,14 @@ export default function Page() {
         <Scanlines />
         <div className="relative z-10 flex flex-col items-center gap-8">
           <div className="relative overflow-hidden">
-            <p ref={s8MainRef} className="font-terminal text-7xl md:text-[10rem] text-white tracking-widest text-center leading-none">
+            <p ref={s8MainRef} className="font-terminal text-4xl sm:text-5xl md:text-7xl lg:text-[10rem] text-white tracking-wide md:tracking-widest text-center leading-none">
               <TypingText ref={t8Ref} text="DO MORE WEIRD." charDelay={0.06} />
             </p>
             {TEXT_TEARS.map(([top, bottom], i) => (
               <p
                 key={i}
                 ref={(el) => { s8TearRefs.current[i] = el }}
-                className="font-terminal absolute inset-0 text-7xl md:text-[10rem] text-white tracking-widest text-center leading-none pointer-events-none"
+                className="font-terminal absolute inset-0 text-4xl sm:text-5xl md:text-7xl lg:text-[10rem] text-white tracking-wide md:tracking-widest text-center leading-none pointer-events-none"
                 style={{ clipPath: `inset(${top}% 0 ${bottom}% 0)`, opacity: 0 }}
                 aria-hidden
               >
@@ -631,7 +631,7 @@ export default function Page() {
             ))}
             <p
               ref={s8DemoRef}
-              className="font-terminal absolute inset-0 text-7xl md:text-[10rem] text-[#00ff41] tracking-widest text-center leading-none pointer-events-none"
+              className="font-terminal absolute inset-0 text-4xl sm:text-5xl md:text-7xl lg:text-[10rem] text-[#00ff41] tracking-wide md:tracking-widest text-center leading-none pointer-events-none"
               style={{ opacity: 0 }}
               aria-hidden
             >
