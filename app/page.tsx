@@ -64,6 +64,9 @@ export default function Page() {
   const t6fRef = useRef<TypingHandle>(null)
   const t7Ref  = useRef<TypingHandle>(null)
   const t7bRef = useRef<TypingHandle>(null)
+  const t7cRef = useRef<TypingHandle>(null)
+  const t7dRef = useRef<TypingHandle>(null)
+  const t7eRef = useRef<TypingHandle>(null)
   const t8Ref  = useRef<TypingHandle>(null)
 
   // Scene 1 glitch elements
@@ -288,8 +291,19 @@ export default function Page() {
       )
 
       sceneTyping(s7bRef,
-        () => t7bRef.current?.play(),
-        () => t7bRef.current?.reset(),
+        () => t7bRef.current?.play(() =>
+          t7cRef.current?.play(() =>
+            t7dRef.current?.play(() =>
+              t7eRef.current?.play()
+            )
+          )
+        ),
+        () => {
+          t7bRef.current?.reset()
+          t7cRef.current?.reset()
+          t7dRef.current?.reset()
+          t7eRef.current?.reset()
+        },
       )
 
       sceneTyping(s8Ref,
@@ -537,9 +551,16 @@ export default function Page() {
 
       <div ref={s7bRef} className="relative h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
         <Scanlines />
-        <p className="relative z-10 font-terminal text-7xl md:text-9xl text-[#ff2222] tracking-wide text-center px-8 whitespace-nowrap">
-          <TypingText ref={t7bRef} text="Kill #do-more-weird." charDelay={0.07} />
-        </p>
+        <div className="relative z-10 flex flex-col gap-8 px-12 max-w-4xl w-full">
+          <p className="font-terminal text-5xl md:text-6xl text-[#ff2222] tracking-wide">
+            <TypingText ref={t7bRef} text="Here are our demands:" showCursor={false} charDelay={0.06} />
+          </p>
+          <div className="flex flex-col gap-5 text-lg md:text-xl text-white leading-relaxed">
+            <p><TypingText ref={t7cRef} text="1) Change #do-more-weird to #demo-more-weird." showCursor={false} charDelay={0.03} /></p>
+            <p><TypingText ref={t7dRef} text="2) Redirect ideas that need conspirators/money to RFCs for better visibility and documentation." showCursor={false} charDelay={0.02} /></p>
+            <p><TypingText ref={t7eRef} text="3) If given a choice, go live. If you can't go live, reduce the task size so you can." charDelay={0.025} /></p>
+          </div>
+        </div>
       </div>
 
       <div ref={s8Ref} className="relative h-screen bg-[#050505] flex flex-col items-center justify-center px-8 overflow-hidden">
